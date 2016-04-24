@@ -50,7 +50,34 @@ struct node{
 	struct node *right;
 };
 
-
+int sumt = 0;
+void sum_of_tree(struct node *root)
+{
+	if (root != NULL)
+	{
+		sum_of_tree(root -> left);
+		sumt = sumt + (root->data);
+		sum_of_tree(root->right);
+	}
+}
 int get_missing_value(struct node *root,int n){
-    return -1;
+	int sum;
+	if (root == NULL)
+		return -1;
+	else
+	{
+		if (n > 0)
+		{
+			sum = (n*(n + 1)) / 2;
+			sum_of_tree(root);
+			return sum - sumt;
+		}
+		else
+		{
+			n = 0 - n;
+			sum = (n*(n + 1)) / 2;
+			sum_of_tree(root);
+			return sum + sumt;
+		}
+	}
 }
